@@ -1,43 +1,43 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    private static Scanner input;
-    private static final String filePath = "C:/Users/user/IdeaProjects/LettersMaven/src/main/resources/output.txt";
     private static final int[] count = new int[26];
     private static int totalLetters;
-    private static String message = "Letters in file: ";
+    private static final String message = "Letters in file: ";
+    private static InputStream input;
+    private static final String fileName = "output.txt";
 
-    public static void main(String[] args) {
-        takeFile();
+    public static void main(String[] args) throws IOException {
+        takeFile(fileName);
     }
 
-    public static void takeFile() {
+    public static void takeFile(String file) throws IOException {
+        input = Main.class.getResourceAsStream(fileName);
+        takeLetters(totalLetters);
+    }
+
+    public static void takeLetters(int totalLettersInFile) throws IOException {
+
         try {
-            input = new Scanner(new File(filePath));
-        } catch (FileNotFoundException e) {
-            System.out.println("Can`t find file");
-        }
-        takeLetters();
-    }
-
-    public static void takeLetters() {
-        while (input.hasNextLine()) {
-            String answer = input.nextLine();
-            answer = answer.toLowerCase();
-            char[] characters = answer.toCharArray();
-            for (char character : characters) {
-                if ((character >= 'a') && (character <= 'z')) {
-                    count[character - 'a']++;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                line = line.toLowerCase();
+                char[] characters = line.toCharArray();
+                for (char character : characters) {
+                    if ((character >= 'a') && (character <= 'z')) {
+                        count[character - 'a']++;
+                    }
+                    totalLetters++;
                 }
-                totalLetters++;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         makeResult();
     }
 
-    public static void makeResult() {
+    public static void makeResult() throws IOException {
         for (int i = 0; i < 26; i++) {
             System.out.print((char) (i + 'a'));
             System.out.println(": " + count[i]);
@@ -50,11 +50,11 @@ public class Main {
         return message;
     }
 
-    static String getFilePath() {
-        return filePath;
-    }
-
     public static int getTotalLetters() {
         return totalLetters;
+    }
+
+    public static String getFileName() {
+        return fileName;
     }
 }

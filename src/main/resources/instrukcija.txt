@@ -1,2 +1,1 @@
 Aplikacija skaita burtus tekstaa pec alfabeta un kopejo skaitu.
-Lai palaist aplikaciju, klasee Main, mainigaa "filePath" vajag noradit kuru failu gribat integret aplikacijaa.
