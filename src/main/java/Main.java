@@ -46,10 +46,6 @@ public class Main {
         input.close();
     }
 
-    public static String getMessage() {
-        return message;
-    }
-
     public static int getTotalLetters() {
         return totalLetters;
     }
