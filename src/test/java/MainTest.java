@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    @org.junit.jupiter.api.Test
-    void takeFile() throws IOException {
-
+    @Test
+    void main() throws IOException {
         String fileName = "output.txt";
         Main.takeFile(fileName);
         assertEquals(fileName, Main.getFileName());
